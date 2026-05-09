@@ -57,8 +57,8 @@
       </nav>
 
       <div class="sidebar-card user-card">
-        <strong>Rol actual</strong>
-        <p>{{ role === 1 ? 'Administrador / Reportes' : role === 2 ? 'Usuario de voto' : 'Sin rol definido' }}</p>
+        <strong>Bienvenido!</strong>
+        <p>{{ role === 1 ? 'Administrador' : role === 2 ? 'Usuario votante' : 'Sin rol definido' }}</p>
       </div>
 
     </aside>
@@ -68,7 +68,7 @@
       <div class="dashboard-header">
         <div>
           <h1>Panel principal</h1>
-          <p>Resumen de satisfacción en tiempo real</p>
+          <p>Medición de satisfacción de usuarios.</p>
         </div>
       </div>
 
@@ -124,14 +124,14 @@
       <ng-template #voterSection>
         <div *ngIf="role === 2; else noRoleSection" class="dashboard-content vote-view">
           <div class="card vote-card">
-            <h2>Dar tu voto</h2>
+            <h2 class="titleVoto">Dar tu voto</h2>
             <p>
               Selecciona un valor del 0 al 10 y pulsa
               <strong>Votar</strong> para enviar tu opinión.
             </p>
 
             <div class="vote-control">
-              <label for="voteValue">Valor</label>
+              <label for="voteValue">¿Cuán probable es que recomiende el producto o servicio a un familiar o amigo?</label>
               <select id="voteValue" [(ngModel)]="voteValue">
                 <option *ngFor="let value of [0,1,2,3,4,5,6,7,8,9,10]" [value]="value">
                   {{ value }}

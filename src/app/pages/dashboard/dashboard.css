@@ -400,14 +400,16 @@
    VOTE
 ═══════════════════════════════════════ */
 .vote-card {
-  max-width: 560px;
+  max-width: 700px;
+  align-items: center;
 }
 
 .vote-card h2 {
   margin: 0 0 12px;
-  font-size: 1rem;
+  font-size: 3rem;
   font-weight: 500;
   color: var(--text-primary);
+  text-align: center;
 }
 
 .vote-card > p {
@@ -415,6 +417,7 @@
   color: var(--text-secondary);
   line-height: 1.7;
   margin: 0 0 20px;
+  text-align: center;
 }
 
 .vote-control {
@@ -428,11 +431,11 @@
 }
 
 .vote-control label {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .vote-control select {
@@ -453,7 +456,6 @@
 }
 
 .primary {
-  display: inline-flex;
   align-items: center;
   padding: 12px 24px;
   border: 1px solid var(--accent-dim);
@@ -461,10 +463,11 @@
   background: #1d2045;
   color: var(--accent);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.02em;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
+  max-width: 530px;
   transition: background 0.15s, border-color 0.15s;
 }
 
