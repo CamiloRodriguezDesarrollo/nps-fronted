@@ -1,1 +1,165 @@
-<p>dashboard works!</p>
+<section class="dashboard-shell">
+  <div class="dashboard-layout">
+
+    <aside class="dashboard-sidebar">
+
+      <div class="sidebar-brand">
+        <span class="sidebar-badge">
+          <span class="sidebar-badge-dot"></span>
+          NPS
+        </span>
+        <h2>Panel</h2>
+        <p>Visualiza datos, estados y votaciones desde un solo lugar.</p>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <p class="sidebar-section-label">Navegación</p>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item" [class.active]="role === 1">
+          <span class="nav-item-icon">
+            <i class="ti ti-chart-bar" aria-hidden="true"></i>
+          </span>
+          Reporte NPS
+        </button>
+        <button class="nav-item" [class.active]="role === 2">
+          <span class="nav-item-icon">
+            <i class="ti ti-thumb-up" aria-hidden="true"></i>
+          </span>
+          Votar
+        </button>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <p class="sidebar-section-label">Acciones</p>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item">
+          <span class="nav-item-icon">
+            <i class="ti ti-chart-line" aria-hidden="true"></i>
+          </span>
+          Estadísticas
+        </button>
+        <button class="nav-item">
+          <span class="nav-item-icon">
+            <i class="ti ti-trending-up" aria-hidden="true"></i>
+          </span>
+          Tendencias
+        </button>
+        <button class="nav-item">
+          <span class="nav-item-icon">
+            <i class="ti ti-star" aria-hidden="true"></i>
+          </span>
+          Enviar valoración
+        </button>
+      </nav>
+
+      <div class="sidebar-card user-card">
+        <strong>Rol actual</strong>
+        <p>{{ role === 1 ? 'Administrador / Reportes' : role === 2 ? 'Usuario de voto' : 'Sin rol definido' }}</p>
+      </div>
+
+    </aside>
+
+    <main class="dashboard-main">
+
+      <div class="dashboard-header">
+        <div>
+          <h1>Panel principal</h1>
+          <p>Resumen de satisfacción en tiempo real</p>
+        </div>
+      </div>
+
+      <div *ngIf="role === 1; else voterSection" class="dashboard-content report-view">
+
+        <div class="card report-summary">
+          <span class="badge">NPS</span>
+          <h2>Reporte de satisfacción</h2>
+          <p class="score {{ reportClass }}">{{ reportedScore }}%</p>
+          <div class="metrics">
+            <div class="promoter">
+              <strong>{{ reportDetails.promoters }}%</strong>
+              <span>Promotores</span>
+            </div>
+            <div class="neutral">
+              <strong>{{ reportDetails.neutrals }}%</strong>
+              <span>Neutrales</span>
+            </div>
+            <div class="detractor">
+              <strong>{{ reportDetails.detractors }}%</strong>
+              <span>Detractores</span>
+            </div>
+          </div>
+          <p class="report-copy">
+            Este panel muestra los resultados actuales del NPS y permite
+            validar el desempeño de satisfacción del cliente.
+          </p>
+        </div>
+
+        <div class="card report-details">
+          <h3>Gráfico de tendencia</h3>
+          <div class="chart-placeholder">
+            <span>Gráfico de NPS</span>
+          </div>
+          <div class="report-list">
+            <div>
+              <strong>Última semana</strong>
+              <p class="trend-up">+5 puntos</p>
+            </div>
+            <div>
+              <strong>Mes anterior</strong>
+              <p class="trend-up">+11 puntos</p>
+            </div>
+            <div>
+              <strong>Objetivo</strong>
+              <p class="trend-target">75%</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #voterSection>
+        <div *ngIf="role === 2; else noRoleSection" class="dashboard-content vote-view">
+          <div class="card vote-card">
+            <h2>Dar tu voto</h2>
+            <p>
+              Selecciona un valor del 0 al 10 y pulsa
+              <strong>Votar</strong> para enviar tu opinión.
+            </p>
+
+            <div class="vote-control">
+              <label for="voteValue">Valor</label>
+              <select id="voteValue" [(ngModel)]="voteValue">
+                <option *ngFor="let value of [0,1,2,3,4,5,6,7,8,9,10]" [value]="value">
+                  {{ value }}
+                </option>
+              </select>
+            </div>
+
+            <button class="primary" (click)="submitVote()">Votar</button>
+
+            <p *ngIf="voteSubmitted" class="vote-result">
+              Gracias por tu aporte. Tu voto ha sido registrado.
+            </p>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #noRoleSection>
+        <div class="dashboard-content no-role">
+          <div class="card notice-card">
+            <h2>Rol no disponible</h2>
+            <p>
+              No se encontró un rol válido en tu sesión.
+              Vuelve a iniciar sesión o contacta al administrador.
+            </p>
+          </div>
+        </div>
+      </ng-template>
+
+    </main>
+  </div>
+</section>
