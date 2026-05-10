@@ -39,6 +39,7 @@ export class Login {
           const token = response.accessToken ?? response.token ?? response;
           if (typeof token === 'string') {
             this.authService.saveToken(token);
+            this.authService.startSessionTimer();
           }
 
           const role = response.role ?? response.userRole ?? response.roleId;

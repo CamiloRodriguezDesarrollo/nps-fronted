@@ -9,6 +9,32 @@ export class Auth {
   private apiUrl = 'https://localhost:7286/api/auth';
 
   constructor(private http: HttpClient) { }
+  
+  private timeOut: any; 
+
+  startSessionTimer() {
+
+  this.resetTimer();
+
+  window.addEventListener('mousemove', () => this.resetTimer());
+
+  window.addEventListener('click', () => this.resetTimer());
+
+  window.addEventListener('keypress', () => this.resetTimer());
+
+  window.addEventListener('scroll', () => this.resetTimer());
+}
+resetTimer() {
+
+  clearTimeout(this.timeOut);
+
+  this.timeOut = setTimeout(() => {
+
+    this.logout();
+    window.location.href = '/login';
+
+  }, 5 * 60 * 1000);
+}
 
   login(data: any) {
     return this.http.post(`${this.apiUrl}/login`, data);
@@ -53,6 +79,11 @@ export class Auth {
     }
 
     return null;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   private decodeJwtPayload(token: string): any | null {

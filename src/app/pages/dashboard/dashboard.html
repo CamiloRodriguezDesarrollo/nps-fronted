@@ -70,28 +70,18 @@
           <h1>Panel principal</h1>
           <p>Medición de satisfacción de usuarios.</p>
         </div>
+        <button class="logout-button" (click)="logout()" type="button">
+          <i class="ti ti-logout"></i>
+          Cerrar sesión
+        </button>
       </div>
 
       <div *ngIf="role === 1; else voterSection" class="dashboard-content report-view">
 
         <div class="card report-summary">
           <span class="badge">NPS</span>
-          <h2>Reporte de satisfacción</h2>
-          <p class="score {{ reportClass }}">{{ reportedScore }}%</p>
-          <div class="metrics">
-            <div class="promoter">
-              <strong>{{ reportDetails.promoters }}%</strong>
-              <span>Promotores</span>
-            </div>
-            <div class="neutral">
-              <strong>{{ reportDetails.neutrals }}%</strong>
-              <span>Neutrales</span>
-            </div>
-            <div class="detractor">
-              <strong>{{ reportDetails.detractors }}%</strong>
-              <span>Detractores</span>
-            </div>
-          </div>
+          <h2>Resultado de satisfacción</h2>
+          <p class="score">{{ reportedScore }}</p>
           <p class="report-copy">
             Este panel muestra los resultados actuales del NPS y permite
             validar el desempeño de satisfacción del cliente.
@@ -99,24 +89,27 @@
         </div>
 
         <div class="card report-details">
-          <h3>Gráfico de tendencia</h3>
-          <div class="chart-placeholder">
-            <span>Gráfico de NPS</span>
-          </div>
-          <div class="report-list">
-            <div>
-              <strong>Última semana</strong>
-              <p class="trend-up">+5 puntos</p>
-            </div>
-            <div>
-              <strong>Mes anterior</strong>
-              <p class="trend-up">+11 puntos</p>
-            </div>
-            <div>
-              <strong>Objetivo</strong>
-              <p class="trend-target">75%</p>
-            </div>
-          </div>
+          <h3>Usuarios encuestados</h3>
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Calificación</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.name }}</td>
+                <td>{{ user.rating }}</td>
+                <td>{{ user.blocked ? 'Bloqueado' : 'Activo' }}</td>
+                <td>
+                  <button *ngIf="user.blocked" class="unlock-button" (click)="unlockUser(user.id)">Desbloquear</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
       </div>
@@ -126,7 +119,7 @@
           <div class="card vote-card">
             <h2 class="titleVoto">Dar tu voto</h2>
             <p>
-              Selecciona un valor del 0 al 10 y pulsa
+              Selecciona un valor del 0 al 10 donde 0 es "Muy improbable" y 10 es "Definitivamente lo recomendaría" y pulsa
               <strong>Votar</strong> para enviar tu opinión.
             </p>
 
